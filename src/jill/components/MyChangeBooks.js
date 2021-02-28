@@ -69,41 +69,38 @@ class MyChangeBooks extends React.Component {
   // userid傳不到後端
   handleSubmit = (event) => {
     const userId = localStorage.getItem('userId')
-    console.log(userId)
+    console.log('handleSubmit userId', userId)
     alert('A name was submitted: ' + userId)
     event.preventDefault()
     // 送到後端的資料
     // const data = { tweet: { body: this.state.userId } }
+    console.log('this.state.c_sid', this.state.c_sid)
+    const url = 'http://localhost:3333/normal-index/random/' + this.state.c_sid
 
     // let history = this.props.history
-    fetch('http://localhost:3333/normal-index/random/' + this.state.c_sid, {
+    fetch(url, {
       method: 'POST', //PUT會連第一段SQL都跑不出來
       body: JSON.stringify({
         userId: userId,
       }),
-      headers: new Headers({
-        Accept: 'application/json',
-        'Content-Type': 'appliaction/json',
-      }),
     })
-      .then((response) => response.json())
+      .then((res) => res.json())
       .catch((error) => console.error('Error:', error))
-      .then((userId) => {
+      .then((res) => {
         /*接到request data後要做的事情*/
-        console.log(userId)
+        console.log('ChangeBook', res)
+        window.location.href =
+          `http://localhost:3000/RandomSuccess/` + this.state.c_sid
         //更新某一筆資料
         // this.handleServerItemAdd(data)
       })
-      // .then((response) => {
-      //   this.setState({ userId: response.userId })
-      // })
-      .catch((e) => {
-        /*發生錯誤時要做的事情*/
-      })
+    // .then((response) => {
+    //   this.setState({ userId: response.userId })
     // })
-
-    window.location.href =
-      `http://localhost:3000/RandomSuccess/` + this.state.c_sid
+    // .catch((e) => {
+    //   /*發生錯誤時要做的事情*/
+    // })
+    // })
   }
 
   // 與JS或JQ整合要在這邊，執行順序是class，再來render然後才是這區塊，這邊可以fetch
