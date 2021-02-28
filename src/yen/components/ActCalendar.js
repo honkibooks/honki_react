@@ -62,10 +62,15 @@ class ActCalendar extends Component {
       .then((res) => res.json())
       .catch((error) => console.error('Error:', error))
       .then((response) => {
-        console.log('class', response)
         that.setState({ orderLists: response.rows })
         that.initCalendar(response.rows)
       })
+
+    // const response = await fetch(request)
+    // const data = await response.json()
+    // console.log('response', response)
+    // console.log('order data', data)
+    // setOrderLists(data)
   }
 
   // 取得目前dete的月份第一天的字串
