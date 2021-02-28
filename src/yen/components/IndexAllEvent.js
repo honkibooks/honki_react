@@ -24,7 +24,7 @@ function IndexAllEvent(props) {
 
   // 篩選按鈕
   function classButtonClick(changeClass) {
-    console.log('class', changeClass)
+    // console.log('class', changeClass)
     setQueryClass(changeClass)
   }
 

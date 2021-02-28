@@ -44,7 +44,7 @@ function ActIndex(props) {
   // 活動篩選
   useEffect(() => {
     // let pathName = props.location.pathname
-    console.log('props', props)
+    // console.log('props', props)
     // console.log('queryClass', queryClass)
 
     async function newClassPages() {
@@ -60,11 +60,11 @@ function ActIndex(props) {
         }),
       })
       const data = await response.json()
-      console.log('new data page', response, data)
+      // console.log('new data page', response, data)
       setEventLists(data)
     }
     newClassPages()
-  }, [queryClass, queryPage])
+  }, [props.location.search])
 
   // 換頁
   useEffect(() => {
@@ -74,7 +74,7 @@ function ActIndex(props) {
 
     async function newPages() {
       const url = pathName + pageNow
-      console.log(url)
+      // console.log(url)
       // 和伺服器要資料
       const response = await fetch('http://localhost:3333' + url, {
         method: 'GET',
@@ -91,7 +91,7 @@ function ActIndex(props) {
     }
     // window.scrollY()
     newPages()
-  }, [queryPage])
+  }, [queryPage, queryClass])
 
   // 所有活動
   async function getAllEventFromServer() {
