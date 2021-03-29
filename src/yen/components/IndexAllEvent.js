@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import moment from 'moment'
 
@@ -22,9 +22,30 @@ function IndexAllEvent(props) {
     setQueryClass,
   } = props
 
+  // TODO: 調整btn
+  const btnClass = document.querySelector('.yen-select-btn')
+  const selectTalk = document.querySelector('#talk')
+  const selectBookClub = document.querySelector('#book_club')
+
+  useEffect(() => {
+    // if (btnClass.classList.contains('active') !== undefined) {
+    //   btnClass.classList.remove('active')
+    // }
+    // switch (queryClass) {
+    //   case '?changeClass=talk':
+    //     selectTalk.classList.add('active')
+    //     break
+    //   case '?changeClass=book_club':
+    //     selectBookClub.classList.add('active')
+    //     break
+    //   default:
+    // }
+  }, [queryClass])
+
   // 篩選按鈕
   function classButtonClick(changeClass) {
     // console.log('class', changeClass)
+    console.log('class', btnClass)
     setQueryClass(changeClass)
   }
 
@@ -107,6 +128,7 @@ function IndexAllEvent(props) {
         <div className="yen-select">
           <button
             className="btn-md-light yen-select-btn"
+            id="talk"
             onClick={() => {
               props.history.push('/activity?changeClass=talk')
               const changeClass = '?changeClass=talk'
@@ -117,6 +139,7 @@ function IndexAllEvent(props) {
           </button>
           <button
             className="btn-md-light yen-select-btn"
+            id="book_club"
             onClick={() => {
               props.history.push('/activity?changeClass=book_club')
               const changeClass = '?changeClass=book_club'

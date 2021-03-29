@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 
 // components
@@ -9,6 +9,9 @@ import SvgRun from './svg/SvgRun'
 import ActEvent from '../pages/ActEvent'
 
 function IndexHot(props) {
+  const [clickEvent, setClickEvent] = useState(false)
+  const [cardSid, setCardSid] = useState(null)
+
   // 拖曳
   useEffect(() => {
     const slider = document.querySelector('.items')
@@ -21,6 +24,7 @@ function IndexHot(props) {
       slider.classList.add('active')
       startX = e.pageX - slider.offsetLeft
       scrollLeft = slider.scrollLeft
+      !clickEvent ? setClickEvent(true) : setClickEvent(false)
     })
 
     slider.addEventListener('mouseleave', () => {
@@ -45,7 +49,15 @@ function IndexHot(props) {
   if (urlPage === '?page=1') {
     urlPage = '?page=1'
   }
-  console.log('IndexHot', props)
+  // console.log('IndexHot', props)
+
+  function linkCard() {
+    if (clickEvent) {
+      setTimeout(() => {
+        props.history.push('/activity/event/' + cardSid)
+      }, 1000)
+    }
+  }
 
   const hoverCard = (
     <>
@@ -66,9 +78,8 @@ function IndexHot(props) {
                 }, 1000)
               }}
               onTouchEnd={() => {
-                setTimeout(() => {
-                  props.history.push('/activity/event/' + value.act_sid)
-                }, 1000)
+                setCardSid(value.act_sid)
+                linkCard()
               }}
             >
               <div className="yen-hot-cover-box d-flex">
